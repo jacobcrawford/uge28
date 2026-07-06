@@ -1,48 +1,77 @@
-<div class="container">
-  <h1>{{ title }}</h1>
+<div class="layout">
+  <aside class="sidebar" aria-label="Sidebar tabs">
+    <h1>{{ title }}</h1>
+    <button
+      type="button"
+      class="tab"
+      [class.active]="selectedTab === 'results'"
+      (click)="setTab('results')"
+    >
+      Results Tracker
+    </button>
+    <button
+      type="button"
+      class="tab"
+      [class.active]="selectedTab === 'about'"
+      (click)="setTab('about')"
+    >
+      About
+    </button>
+  </aside>
 
-  <form class="entry-form" (ngSubmit)="addEntry()">
-    <label>
-      Game played
-      <input
-        type="text"
-        name="game"
-        [(ngModel)]="game"
-        placeholder="e.g. Chess"
-        required
-      />
-    </label>
+  <main class="content">
+    <section *ngIf="selectedTab === 'results'" class="panel">
+      <h2>Results Tracker</h2>
 
-    <label>
-      Winner
-      <input
-        type="text"
-        name="winner"
-        [(ngModel)]="winner"
-        placeholder="e.g. Jacob"
-        required
-      />
-    </label>
+      <form class="entry-form" (ngSubmit)="addEntry()">
+        <label>
+          Game played
+          <input
+            type="text"
+            name="game"
+            [(ngModel)]="game"
+            placeholder="e.g. Chess"
+            required
+          />
+        </label>
 
-    <button type="submit">Add result</button>
-  </form>
+        <label>
+          Winner
+          <input
+            type="text"
+            name="winner"
+            [(ngModel)]="winner"
+            placeholder="e.g. Jacob"
+            required
+          />
+        </label>
 
-  <table class="results" *ngIf="entries.length > 0; else noEntries">
-    <thead>
-      <tr>
-        <th>Game</th>
-        <th>Winner</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let entry of entries">
-        <td>{{ entry.game }}</td>
-        <td>{{ entry.winner }}</td>
-      </tr>
-    </tbody>
-  </table>
+        <button type="submit">Add result</button>
+      </form>
 
-  <ng-template #noEntries>
-    <p class="empty-state">No game results yet. Add your first result above.</p>
-  </ng-template>
+      <table class="results" *ngIf="entries.length > 0; else noEntries">
+        <thead>
+          <tr>
+            <th>Game</th>
+            <th>Winner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entry of entries">
+            <td>{{ entry.game }}</td>
+            <td>{{ entry.winner }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #noEntries>
+        <p class="empty-state">No game results yet. Add your first result above.</p>
+      </ng-template>
+    </section>
+
+    <section *ngIf="selectedTab === 'about'" class="panel">
+      <h2>About</h2>
+      <p class="empty-state">Use the Results Tracker tab to add and view game winners.</p>
+    </section>
+  </main>
 </div>

@@ -16,9 +16,14 @@ interface GameEntry {
 })
 export class AppComponent {
   title = 'Game Results Tracker';
+  selectedTab: 'results' | 'about' = 'results';
   game = '';
   winner = '';
   entries: GameEntry[] = [];
+
+  setTab(tab: 'results' | 'about'): void {
+    this.selectedTab = tab;
+  }
 
   addEntry(): void {
     const game = this.game.trim();
