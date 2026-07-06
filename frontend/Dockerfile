@@ -3,14 +3,11 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files
-COPY frontend/package*.json ./
+# Copy entire frontend directory (including package.json)
+COPY frontend/ .
 
 # Install dependencies
 RUN npm install
-
-# Copy source code
-COPY frontend/ .
 
 # Build the Angular app
 RUN npm run build
@@ -22,7 +19,7 @@ FROM nginx:alpine
 COPY frontend/nginx.conf /etc/nginx/nginx.conf
 
 # Copy built app from builder stage
-COPY --from=builder /app/dist/angular-app /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
