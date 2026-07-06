@@ -1,27 +1,27 @@
-# Stage 1: Build the Angular app
-FROM node:18-alpine AS builder
 
+# Define the Node.js version to use (Alpine for a small footprint)
+ARG NODE_VERSION=24.12.0-alpine
+
+# Set the base image for development
+FROM node:${NODE_VERSION} AS dev
+
+# Set environment variable to indicate development mode
+ENV NODE_ENV=development
+
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy entire frontend directory (including package.json)
-COPY frontend/ .
+# Copy only the dependency files first to optimize Docker caching
+COPY package.json package-lock.json* ./
 
-# Install dependencies
-RUN npm install
+# Install dependencies using npm with caching to speed up subsequent builds
+RUN --mount=type=cache,target=/root/.npm npm install
 
-# Build the Angular app
-RUN npm run build
+# Copy all application source files into the container
+COPY . .
 
-# Stage 2: Serve the app with Angular CLI
-FROM node:18-alpine
-
-WORKDIR /app
-
-# Copy entire frontend directory from builder
-COPY --from=builder /app /app
-
-# Expose port 4200
+# Expose the port Angular uses for the dev server (default is 4200)
 EXPOSE 4200
 
-# Start the Angular development server listening on all interfaces
-CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200", "--poll", "2000"]
+# Start the Angular dev server and bind it to all network interfaces
+CMD ["npm", "start", "--", "--host=0.0.0.0"]
