@@ -1,0 +1,31 @@
+# Stage 1: Build the Angular app
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+
+# Copy package files
+COPY frontend/package*.json ./
+
+# Install dependencies
+RUN npm ci
+
+# Copy source code
+COPY frontend/ .
+
+# Build the Angular app
+RUN npm run build
+
+# Stage 2: Serve the app with Nginx
+FROM nginx:alpine
+
+# Copy custom nginx configuration
+COPY frontend/nginx.conf /etc/nginx/nginx.conf
+
+# Copy built app from builder stage
+COPY --from=builder /app/dist/angular-app /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
