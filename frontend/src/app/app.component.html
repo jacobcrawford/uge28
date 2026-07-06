@@ -37,17 +37,22 @@
 
         <label>
           Winner
-          <input
-            type="text"
+          <select
             name="winner"
             [(ngModel)]="winner"
-            placeholder="e.g. Jacob"
             required
-          />
+          >
+            <option value="" disabled>Select winner</option>
+            <option *ngFor="let option of winners" [value]="option">{{ option }}</option>
+          </select>
         </label>
 
-        <button type="submit">Add result</button>
+        <button type="submit" [disabled]="winners.length === 0">Add result</button>
       </form>
+
+      <p class="empty-state" *ngIf="winners.length === 0">
+        No winners available. Add names to src/assets/winners.json.
+      </p>
 
       <table class="results" *ngIf="entries.length > 0; else noEntries">
         <thead>
