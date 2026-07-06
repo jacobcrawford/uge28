@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
 
     this.entries = [{ game, winner }, ...this.entries];
     this.game = '';
-    this.winner = '';
+    this.winner = this.winners[0] ?? '';
   }
 
   private loadWinners(): void {
@@ -53,6 +53,10 @@ export class AppComponent implements OnInit {
           .filter((winner) => typeof winner === 'string')
           .map((winner) => winner.trim())
           .filter((winner) => winner.length > 0);
+
+        if (!this.winner || !this.winners.includes(this.winner)) {
+          this.winner = this.winners[0] ?? '';
+        }
       },
       error: () => {
         this.winners = [];
