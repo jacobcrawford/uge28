@@ -119,6 +119,51 @@ button:hover {
   font-size: 1rem;
 }
 
+.meme-card {
+  margin-top: 1.25rem;
+  max-width: 640px;
+  border: 2px solid #161616;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #fdf6e7 0%, #f7e6c7 100%);
+  padding: 1rem;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+.meme-top,
+.meme-bottom {
+  margin: 0;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: #2f1c12;
+  text-align: center;
+}
+
+.meme-middle {
+  margin: 0.9rem 0;
+  min-height: 180px;
+  border-radius: 10px;
+  border: 1px solid #8d6e63;
+  background: radial-gradient(circle at 30% 30%, #fff8ec 0%, #edd7b0 60%, #d8bf95 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.die {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #8b1e3f;
+}
+
+.roll {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #b00020;
+}
+
 @media (max-width: 800px) {
   .layout {
     grid-template-columns: 1fr;
