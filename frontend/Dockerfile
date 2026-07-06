@@ -23,5 +23,5 @@ COPY --from=builder /app /app
 # Expose port 4200
 EXPOSE 4200
 
-# Start the Angular development server
-CMD ["npm", "start"]
+# Start the Angular development server listening on all interfaces
+CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200", "--poll", "2000"]
