@@ -12,17 +12,16 @@ RUN npm install
 # Build the Angular app
 RUN npm run build
 
-# Stage 2: Serve the app with Nginx
-FROM nginx:alpine
+# Stage 2: Serve the app with Angular CLI
+FROM node:18-alpine
 
-# Copy custom nginx configuration
-COPY frontend/nginx.conf /etc/nginx/nginx.conf
+WORKDIR /app
 
-# Copy built app from builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+# Copy entire frontend directory from builder
+COPY --from=builder /app /app
 
-# Expose port 80
-EXPOSE 80
+# Expose port 4200
+EXPOSE 4200
 
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start the Angular development server
+CMD ["npm", "start"]
