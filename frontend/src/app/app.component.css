@@ -1,50 +1,15 @@
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 40px 20px;
-  border-radius: 8px;
-  margin-bottom: 30px;
   text-align: center;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
 }
 
-header h1 {
-  font-size: 2.5rem;
-  font-weight: 300;
+h1 {
+  color: #333;
+  margin-bottom: 1rem;
 }
 
-main {
-  flex: 1;
-  background: white;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 30px;
-}
-
-main p {
+p {
+  color: #666;
   font-size: 1.1rem;
-  margin-bottom: 15px;
-  line-height: 1.6;
-}
-
-footer {
-  background: #333;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  border-radius: 8px;
-}
-
-footer p {
-  margin: 0;
-  font-size: 0.9rem;
 }
