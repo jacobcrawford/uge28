@@ -1,4 +1,48 @@
 <div class="container">
-  <h1>Welcome to {{ title }}</h1>
-  <p>Your Angular application is running successfully!</p>
+  <h1>{{ title }}</h1>
+
+  <form class="entry-form" (ngSubmit)="addEntry()">
+    <label>
+      Game played
+      <input
+        type="text"
+        name="game"
+        [(ngModel)]="game"
+        placeholder="e.g. Chess"
+        required
+      />
+    </label>
+
+    <label>
+      Winner
+      <input
+        type="text"
+        name="winner"
+        [(ngModel)]="winner"
+        placeholder="e.g. Jacob"
+        required
+      />
+    </label>
+
+    <button type="submit">Add result</button>
+  </form>
+
+  <table class="results" *ngIf="entries.length > 0; else noEntries">
+    <thead>
+      <tr>
+        <th>Game</th>
+        <th>Winner</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entry of entries">
+        <td>{{ entry.game }}</td>
+        <td>{{ entry.winner }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noEntries>
+    <p class="empty-state">No game results yet. Add your first result above.</p>
+  </ng-template>
 </div>
